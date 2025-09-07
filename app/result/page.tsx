@@ -12,9 +12,10 @@ export default function Result() {
   const router = useRouter();
 
   useEffect(() => {
-    const userData = getFromLocalStorage('user');
-    const userScore = getFromLocalStorage('score') || 0;
-    const userAnswers = getFromLocalStorage('answers') || [];
+    // ใช้ Generic Type เพื่อกำหนด type ที่ชัดเจน
+    const userData = getFromLocalStorage<User>('user');
+    const userScore = getFromLocalStorage<number>('score') || 0;
+    const userAnswers = getFromLocalStorage<Answer[]>('answers') || [];
 
     if (!userData) {
       router.push('/');
@@ -26,7 +27,9 @@ export default function Result() {
   }, [router]);
 
   const resetQuiz = () => {
-    localStorage.clear();
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+    }
     router.push('/');
   };
 

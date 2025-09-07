@@ -31,7 +31,6 @@ const questions: QuizQuestionType[] = [
     min: 1,
     max: 30
   },
-  // เพิ่มคำถามเพิ่มเติมได้ที่นี่
 ];
 
 export default function Quiz() {
@@ -42,7 +41,8 @@ export default function Quiz() {
   const router = useRouter();
 
   useEffect(() => {
-    const userData = getFromLocalStorage('user');
+    // ใช้ Generic type เพื่อกำหนด type ที่คืนกลับมา
+    const userData = getFromLocalStorage<User>('user');
     if (!userData) {
       router.push('/');
     } else {
